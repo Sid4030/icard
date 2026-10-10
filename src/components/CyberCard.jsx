@@ -285,24 +285,37 @@ export default function CyberCard({ attendee, onFlipChange }) {
                   />
                 </div>
               ) : (
-                /* Dynamic Cyber Silhouette / Monogram Avatar for any Custom URL Name */
-                <div className="relative w-full h-[78%] flex flex-col items-center justify-end pb-12">
+                /* Dynamic Cyber Shield / Monogram Badge for Name-Only Badge Design */
+                <div className="relative w-full h-[78%] flex flex-col items-center justify-end pb-10">
                   <div 
-                    className="w-44 h-44 rounded-full flex items-center justify-center relative mb-4 border-2"
+                    className="w-40 h-40 rounded-2xl flex items-center justify-center relative mb-4 border-2 transition-transform duration-500 hover:scale-105"
                     style={{
-                      borderColor: `${accentColor}66`,
-                      background: `radial-gradient(circle, ${accentColor}22 0%, rgba(10,14,22,0.9) 70%)`,
-                      boxShadow: `0 0 40px ${accentColor}33`
+                      borderColor: `${accentColor}88`,
+                      background: `radial-gradient(circle at 50% 40%, ${accentColor}25 0%, rgba(10,14,24,0.95) 75%)`,
+                      boxShadow: `0 0 35px ${accentColor}33, inset 0 0 20px ${accentColor}18`
                     }}
                   >
+                    {/* Corner Cyber Brackets */}
+                    <div className="absolute top-1.5 left-1.5 text-[11px] font-mono leading-none select-none opacity-60" style={{ color: accentColor }}>⌜</div>
+                    <div className="absolute top-1.5 right-1.5 text-[11px] font-mono leading-none select-none opacity-60" style={{ color: accentColor }}>⌝</div>
+                    <div className="absolute bottom-1.5 left-1.5 text-[11px] font-mono leading-none select-none opacity-60" style={{ color: accentColor }}>⌞</div>
+                    <div className="absolute bottom-1.5 right-1.5 text-[11px] font-mono leading-none select-none opacity-60" style={{ color: accentColor }}>⌟</div>
+
+                    {/* Member Initials */}
                     <span 
-                      className="text-6xl font-black font-display tracking-wider"
+                      className="text-5xl font-black font-display tracking-wider select-none drop-shadow-lg"
                       style={{ color: accentColor }}
                     >
                       {attendee.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                     </span>
-                    <div className="absolute -bottom-2 px-3 py-0.5 rounded-full text-[10px] font-mono uppercase bg-black border border-white/20 text-slate-300">
-                      OFFICIAL ID
+
+                    {/* Badge Pill Indicator */}
+                    <div 
+                      className="absolute -bottom-2.5 px-3 py-0.5 rounded-full text-[9px] font-mono uppercase font-bold tracking-wider bg-black border shadow-lg flex items-center gap-1"
+                      style={{ borderColor: `${accentColor}77`, color: '#e2e8f0' }}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: accentColor }} />
+                      <span>{attendee.tier ? attendee.tier.split('/')[0].trim() : 'OFFICIAL ID'}</span>
                     </div>
                   </div>
                 </div>
@@ -317,14 +330,14 @@ export default function CyberCard({ attendee, onFlipChange }) {
               }}
             />
 
-            {/* BOTTOM INFO CLUSTER (Matching reference photo: Name, glowing pill tag, category) */}
+            {/* BOTTOM INFO CLUSTER (Matching reference photo: Full Name, glowing pill tag, category) */}
             <div ref={nameRef} className="relative z-25 mt-auto flex flex-col items-center text-center pb-2">
-              {/* Attendee Name */}
+              {/* Attendee Full Name */}
               <h2 
-                className="text-2xl sm:text-[27px] font-extrabold tracking-tight text-white mb-1 drop-shadow-md"
+                className="text-2xl sm:text-[27px] font-black tracking-tight text-white mb-1 drop-shadow-md"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
-                {attendee.shortName || attendee.name}
+                {attendee.name}
               </h2>
 
               {/* Glowing Role Pill Tag (Like "Media & Marketing Lead" in photo) */}

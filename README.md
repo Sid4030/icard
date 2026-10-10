@@ -2,47 +2,41 @@
 
 A dynamic, 3D animated identity card web application built for **Cybercup 6.0**.
 
-Inspired by physical event badges, featuring real lanyard physics, interactive 3D perspective tilt, holographic reflections, giant condensed typography, cutout foreground portrait layering, flip-to-back security matrix, and comprehensive attendee credentials revealed upon scrolling.
+Inspired by physical event badges, featuring real lanyard physics, interactive 3D perspective tilt, holographic reflections, giant condensed typography, name-only cyber crest badge design, flip-to-back security matrix, and comprehensive attendee credentials revealed upon scrolling.
 
 ---
 
-## ⚡ Dynamic URL Routing (`/:name`)
+## ⚡ Core Team Head URLs (`/:name`)
 
-Attendee iCards dynamically adapt based on the path in the URL:
+Dedicated clean URLs for all 8 Core Team Heads:
 
-- `/siddhant-choudhary` or `/siddhant` — **Siddhant Choudhary** (Lead Organizer & Core Lead)
-- `/harsh` or `/harsh-choudhary` — **Harsh Choudhary** (Cybersecurity Lead & Analyst)
-- `/:any-name` (e.g. `/rohit-sharma`, `/ananya-verma`) — Dynamically generates custom Cybercup 6.0 badge credentials and verification code in real time!
+1. **Siddhant Choudhary**: `/siddhant-choudhary` (or `/siddhant`) — *Lead Organizer & Core Lead*
+2. **Manan Nidar**: `/manan-nidar` (or `/manan`) — *Technical Operations Head*
+3. **Kusagra Rai**: `/kusagra-rai` (or `/kusagra`) — *Event Operations & Logistics Head*
+4. **Riddhi Jain**: `/riddhi-jain` (or `/riddhi`) — *Media & Creative Communications Head*
+5. **Tarun Tiwari**: `/tarun-tiwari` (or `/tarun`) — *Security & Arena Defense Head*
+6. **Jewel Virmani**: `/jewel-virmani` (or `/jewel`) — *PR & Participant Experience Head*
+7. **Achintya Chaitanya**: `/achintya-chaitanya` (or `/achintya`) — *CTF Platform & Scoring Lead*
+8. **Anmol Middha**: `/anmol-middha` (or `/anmol`) — *Sponsorship & Industry Partnerships Head*
 
-Fallback support is also included for:
-- Query parameters: `?name=siddhant-choudhary`
-- Hash routing: `#/siddhant-choudhary`
+*Dynamic fallback:* Any other URL (e.g. `/rohit-sharma`) generates an authentic credential card dynamically!
 
 ---
 
-## 🎨 Key Features & Aesthetics
+## 🖨️ Physical I-Card Maker & QR Code Guide
 
-- **Physical Badge Design**:
-  - Realistic woven lanyard ribbon with silver clip ring and swivel clasp.
-  - Realistic slot hole punch cutout at the top of the ID card.
-  - Giant condensed typographic background (**CYBER 6.0**) layered behind the person.
-  - Studio portrait overlapping the typography with cutout depth and smooth bottom gradient fade.
-  - Glowing role tag pill, micro-barcode, NFC/RFID active indicator, and event badges.
-- **Interactive 3D Motion**:
-  - Built with **Framer Motion** & **GSAP**.
-  - Interactive mouse/touch 3D perspective tilt with real-time holographic glare reflection.
-  - Click/tap to flip the badge in 3D to reveal the magnetic stripe, security clearance, barcode, and emergency contact.
-- **Scroll-Down Attendee Credentials**:
-  - No navbar — seamless focus on the card hero.
-  - Scrolling down reveals the full Cybercup 6.0 dossier:
-    - Official email (with 1-click copy)
-    - Instagram profile (@handle link)
-    - Direct phone contact
-    - GitHub profile
-    - Security pass ID and allocated arena
-    - Live scannable QR verification code
-    - Share link with celebration confetti burst
-    - Interactive live URL tester and switcher
+### How QR codes work when printed:
+- Each QR code printed on a card points to that member's web link on Vercel:
+  `https://<your-domain>/<member-slug>`
+- **You can edit cards at ANY time after printing:**
+  Whenever you change details (roles, phones, emails, emergency contacts, or bios) in `src/data/attendees.js` and push to GitHub, Vercel updates the website in seconds.
+- Anyone scanning the physical card will **immediately see the latest information**.
+- The physical card **never needs to be reprinted!**
+
+### Generating & Downloading QR Codes for the Card Maker:
+Scroll down to the **Physical I-Card Printing Suite** section on the web page:
+- Download high-res (512x512) scannable PNG QR codes individually.
+- Or click **"Download All 8 QR Codes"** to download all files at once for the printer.
 
 ---
 
@@ -61,9 +55,9 @@ npm run build
 
 ---
 
-## 🌐 Deployment (Vercel / Netlify)
+## 🌐 Deployment (Vercel)
 
-1. Connect your GitHub repository: [Sid4030/icard](https://github.com/Sid4030/icard)
+1. Repository: [Sid4030/icard](https://github.com/Sid4030/icard)
 2. Build command: `npm run build`
 3. Output directory: `dist`
-4. Set Single Page Application (SPA) rewrite to `index.html` so all `/:name` subpaths route directly to the React application.
+4. The repo includes `vercel.json` with SPA rewrite rules for all `/:name` routes.
