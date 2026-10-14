@@ -93,6 +93,17 @@ export default function IdentityPass({ attendee }) {
     },
   ].filter(Boolean);
 
+  // Helpers for Sentence Case Role & Pass Number
+  const formatRole = (role) => {
+    if (!role) return '';
+    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
+  };
+
+  const passIdNumber = attendee.id?.includes('-')
+    ? attendee.id.split('-')[1]
+    : (attendee.passNumber || '001');
+  const passLabel = `Pass ${passIdNumber}`;
+
   // GSAP Choreography, Flashing Light & Entrance Sequence
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -110,11 +121,19 @@ export default function IdentityPass({ attendee }) {
           { autoAlpha: 1, yPercent: 0, rotate: 0, stagger: 0.025, duration: 0.65 },
           0.45
         )
-        .fromTo('.anim-role', { autoAlpha: 0, y: 12, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5 }, '-=0.35')
+        .fromTo('.role', { autoAlpha: 0, scale: 0.85, y: 8 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, '-=0.3')
+        .fromTo('.shine', { xPercent: -150 }, { xPercent: 350, duration: 0.9, ease: 'power2.inOut' }, '<0.25')
         .fromTo('.anim-link', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, stagger: 0.07, duration: 0.45 }, '-=0.25')
-        .fromTo('.anim-foot', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, '-=0.2');
+        .fromTo('.foot', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.2');
 
-      // 2. Idle subtle floating oscillation on Big 6.0
+      // 2. Pulsing ring on the dot: cheap, scale and opacity only
+      gsap.fromTo(
+        '.ring',
+        { scale: 1, opacity: 0.8 },
+        { scale: 3, opacity: 0, duration: 1.6, ease: 'power2.out', repeat: -1, repeatDelay: 0.6 }
+      );
+
+      // 3. Idle subtle floating oscillation on Big 6.0
       gsap.to(bigRef.current, {
         yPercent: 3,
         duration: 4.5,
@@ -123,7 +142,7 @@ export default function IdentityPass({ attendee }) {
         repeat: -1,
       });
 
-      // 3. Dynamic Flashing / Blinking Color Light Effect on 6.0
+      // 4. Dynamic Flashing / Blinking Color Light Effect on 6.0
       const flashTl = gsap.timeline({ repeat: -1, repeatDelay: 1.8 });
       flashTl
         .to(bigRef.current, {
@@ -199,22 +218,22 @@ export default function IdentityPass({ attendee }) {
     >
       <article
         ref={cardRef}
-        className="card relative flex flex-col justify-between overflow-hidden bg-[var(--ink)] w-full"
+        className="card relative flex flex-col overflow-hidden bg-[var(--ink)] w-full"
         style={{
+          '--c': accent,
           maxWidth: '460px',
           height: metrics.isDesktop ? 'min(92dvh, 880px)' : '100dvh',
           borderRadius: metrics.isDesktop ? '32px' : '0px',
           border: metrics.isDesktop ? '1px solid var(--line)' : 'none',
           boxShadow: metrics.isDesktop ? '0 40px 120px -30px rgba(0,0,0,0.9)' : 'none',
           paddingTop: 'max(env(safe-area-inset-top, 0px), 12px)',
-          paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 8px)',
         }}
       >
         {/* ================================================================= */}
         {/* 1. HERO: GIANT OUTLINED "6.0" WITH COLOR FLASHING + SCALED AVATAR */}
         {/* ================================================================= */}
         <section
-          className="hero relative flex-1 min-h-[300px] sm:min-h-[340px] w-full overflow-hidden flex items-end justify-center pt-2"
+          className="hero relative flex-1 min-h-[260px] sm:min-h-[300px] w-full overflow-hidden flex items-end justify-center pt-2"
         >
           {/* Giant Outlined "6.0" with Dynamic Color Flashing & Blinking Effect */}
           <div
@@ -236,9 +255,8 @@ export default function IdentityPass({ attendee }) {
 
           {/* Soft Backlight Glow Centered Behind Head */}
           <div
-            className="absolute left-1/2 top-[32%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full pointer-events-none z-0"
+            className="glow absolute left-1/2 top-[32%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full pointer-events-none z-0"
             style={{
-              background: `radial-gradient(circle, ${accent}45 0%, ${accent}15 50%, transparent 75%)`,
               filter: 'blur(28px)',
             }}
           />
@@ -273,9 +291,9 @@ export default function IdentityPass({ attendee }) {
         </section>
 
         {/* ================================================================= */}
-        {/* 2. IDENTITY: TWO-LINE NAME & REFINED FROSTED ROLE BADGE WITH GAPS */}
+        {/* 2. IDENTITY: TWO-LINE NAME & REFINED ROLE PILL (SENTENCE CASE)    */}
         {/* ================================================================= */}
-        <section className="id relative px-7 sm:px-8 text-center z-30 -mt-3 sm:-mt-4">
+        <section className="id relative px-7 sm:px-8 text-center z-30 -mt-2 sm:-mt-4 shrink-0">
           <h1
             className="name font-['Bricolage_Grotesque',sans-serif] font-black leading-[0.92] tracking-[-0.035em] text-center"
             style={{ fontSize: 'clamp(2.3rem, 11vw, 3.8rem)' }}
@@ -307,37 +325,22 @@ export default function IdentityPass({ attendee }) {
             )}
           </h1>
 
-          {/* Centered Role Pill with Refined Frosted Glass UI & Ample Gaps */}
-          <div className="mt-4 sm:mt-5 mb-8 sm:mb-10 flex justify-center">
-            <div
-              className="anim-role inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full text-[12px] sm:text-[13px] font-semibold tracking-[0.2em] uppercase transition-all shadow-md"
-              style={{
-                border: `1px solid ${accent}60`,
-                background: `linear-gradient(135deg, ${accent}22 0%, rgba(18, 20, 26, 0.75) 100%)`,
-                backdropFilter: 'blur(12px)',
-                boxShadow: `0 4px 20px -2px ${accent}30, inset 0 1px 0 rgba(255, 255, 255, 0.12)`,
-                color: '#ffffff',
-              }}
-            >
-              <span className="relative flex h-2 w-2">
-                <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                  style={{ backgroundColor: accent }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ backgroundColor: accent, boxShadow: `0 0 8px ${accent}` }}
-                />
-              </span>
-              <span>{attendee.role}</span>
-            </div>
+          {/* Centered Role Pill with Custom Tint, Sentence Case, Dot Pulse & Shine */}
+          <div className="mt-3 sm:mt-4 mb-6 sm:mb-7 flex justify-center">
+            <p className="role" style={{ '--c': accent }}>
+              <i>
+                <b className="ring" />
+              </i>
+              <span>{formatRole(attendee.role)}</span>
+              <span className="shine" />
+            </p>
           </div>
         </section>
 
         {/* ================================================================= */}
         {/* 3. LINKS: LINKEDIN, EMAIL, PHONE WITH GENEROUS SIDE PADDING       */}
         {/* ================================================================= */}
-        <ul className="links list-none p-0 w-full border-t border-[var(--line)] z-20">
+        <ul className="links list-none p-0 w-full border-t border-[var(--line)] z-20 shrink-0">
           {links.map((link) => (
             <li key={link.label} className="anim-link border-b border-[var(--line)] overflow-hidden">
               <a
@@ -345,7 +348,7 @@ export default function IdentityPass({ attendee }) {
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noopener noreferrer' : undefined}
                 className="group flex w-full items-center justify-between px-7 sm:px-8 py-3.5 sm:py-4 transition-colors duration-200 hover:bg-white/[0.04] active:bg-white/[0.08]"
-                style={{ minHeight: metrics.isShortPhone ? '48px' : '54px' }}
+                style={{ minHeight: metrics.isShortPhone ? '46px' : '52px' }}
               >
                 <div className="flex items-center gap-3">
                   <span className="text-[15px] sm:text-[16px] font-medium tracking-wide text-[var(--text)] group-hover:text-white transition-colors">
@@ -370,10 +373,11 @@ export default function IdentityPass({ attendee }) {
         </ul>
 
         {/* ================================================================= */}
-        {/* 4. FOOTER: MINIMAL CYBERCUP 6.0                                   */}
+        {/* 4. FOOTER: CYBERCUP 6.0 & PASS NUMBER WITH SAFE-AREA INSET PADDING */}
         {/* ================================================================= */}
-        <footer className="anim-foot py-4 sm:py-5 text-center text-[11px] font-medium tracking-[0.24em] text-[#555a68] uppercase z-10">
-          Cybercup 6.0
+        <footer className="foot shrink-0">
+          <span>Cybercup 6.0</span>
+          <span>{passLabel}</span>
         </footer>
       </article>
     </main>

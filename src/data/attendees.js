@@ -53,8 +53,8 @@ export const HEADS_DATA = {
     github: "manan-nidar",
     avatar: "/images-without-background/Manan_ridar-removebg-preview.png",
     avatarScale: 1.25,
-    accentColor: "#38bdf8",
-    accentSecondary: "#818cf8",
+    accentColor: "#c77dff",
+    accentSecondary: "#e879f9",
     venue: "Design & Creative Studio",
     description: "Design Head overseeing brand identity, visual systems, and creative direction."
   },
