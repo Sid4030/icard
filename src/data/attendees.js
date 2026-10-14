@@ -231,7 +231,7 @@ export const HEADS_DATA = {
     firstName: "Chahat",
     lastName: "",
     shortName: "Chahat",
-    role: "Core Member",
+    role: "Organizing Committee",
     category: "ORGANIZING COMMITTEE",
     batch: "2024 - 2028",
     event: "Cybercup 6.0",

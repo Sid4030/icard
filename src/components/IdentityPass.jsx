@@ -155,15 +155,13 @@ export default function IdentityPass({ attendee }) {
           ease: 'power2.inOut',
         });
 
-      // 4. Desktop Tilt and Parallax
+      // 4. Desktop Tilt (Card 3D rotation, keeping head locked in center)
       if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cardRef.current) {
         const card = cardRef.current;
-        const photo = photoRef.current;
         const big = bigRef.current;
 
         const rx = gsap.quickTo(card, 'rotationX', { duration: 0.6, ease: 'power3.out' });
         const ry = gsap.quickTo(card, 'rotationY', { duration: 0.6, ease: 'power3.out' });
-        const px = gsap.quickTo(photo, 'x', { duration: 0.8, ease: 'power3.out' });
         const bx = gsap.quickTo(big, 'x', { duration: 0.8, ease: 'power3.out' });
 
         const handlePointerMove = (e) => {
@@ -171,14 +169,12 @@ export default function IdentityPass({ attendee }) {
           const ny = e.clientY / window.innerHeight - 0.5;
           ry(nx * 8);
           rx(-ny * 6);
-          px(nx * 12);
-          bx(-nx * 20);
+          bx(-nx * 14);
         };
 
         const handlePointerLeave = () => {
           ry(0);
           rx(0);
-          px(0);
           bx(0);
         };
 
@@ -247,23 +243,25 @@ export default function IdentityPass({ attendee }) {
             }}
           />
 
-          {/* Transparent Cutout Portrait: Scaled Up for Manan & Chahat */}
-          <img
-            ref={photoRef}
-            id="photo"
-            src={photoSrc}
-            alt={attendee.name}
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = '/images-without-background/Siddhant-removebg-preview.png';
-            }}
-            className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[98%] sm:h-[102%] w-auto max-w-[94%] object-contain object-bottom select-none pointer-events-none z-10 will-change-transform drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] origin-bottom"
-            style={{
-              transform: `scale(${avatarScale})`,
-              transformOrigin: 'bottom center',
-            }}
-            draggable={false}
-          />
+          {/* Transparent Cutout Portrait: Locked Dead-Center with Flex Container */}
+          <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-10 overflow-hidden">
+            <img
+              ref={photoRef}
+              id="photo"
+              src={photoSrc}
+              alt={attendee.name}
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = '/images-without-background/Siddhant-removebg-preview.png';
+              }}
+              className="h-[98%] sm:h-[102%] w-auto max-w-[94%] object-contain object-bottom select-none pointer-events-none will-change-transform drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
+              style={{
+                transform: `scale(${avatarScale})`,
+                transformOrigin: 'bottom center',
+              }}
+              draggable={false}
+            />
+          </div>
 
           {/* Bottom Gradient Fade: Blends subject seamlessly into the dark page */}
           <div
