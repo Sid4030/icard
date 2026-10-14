@@ -75,14 +75,19 @@ html, body, #root {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .55em 1.25em;
+  gap: .3em;
+  padding: .35em 1.1em;
   border-radius: 99px;
   border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
   background: color-mix(in srgb, var(--c) 14%, transparent);
-  color: color-mix(in srgb, var(--c) 40%, #fff);
-  font: 500 max(13px, 3.7cqw)/1 var(--body);
-  letter-spacing: .01em;             /* no wide tracking, no caps */
-  box-shadow: 0 4px 20px -2px color-mix(in srgb, var(--c) 22%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 5.4vw, 2.05rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  box-shadow: 0 4px 28px -4px color-mix(in srgb, var(--c) 30%, transparent);
 }
 
 .role .shine {

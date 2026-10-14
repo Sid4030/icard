@@ -93,11 +93,10 @@ export default function IdentityPass({ attendee }) {
     },
   ].filter(Boolean);
 
-  // Helpers for Sentence Case Role & Pass Number
-  const formatRole = (role) => {
-    if (!role) return '';
-    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
-  };
+  // Helpers for Editorial Role & Pass Number
+  const roleWords = attendee.role ? attendee.role.trim().split(' ') : ['Member'];
+  const roleFirstPart = roleWords.length > 1 ? roleWords.slice(0, -1).join(' ') : roleWords[0];
+  const roleLastPart = roleWords.length > 1 ? roleWords.slice(-1)[0] : '';
 
   const passIdNumber = attendee.id?.includes('-')
     ? attendee.id.split('-')[1]
@@ -319,10 +318,20 @@ export default function IdentityPass({ attendee }) {
             )}
           </h1>
 
-          {/* Centered Role Pill with Custom Tint, Sentence Case & Silky Shine Swipe */}
-          <div className="mt-3 sm:mt-4 mb-6 sm:mb-7 flex justify-center">
+          {/* Centered Role Badge: 2 Sizes Less than Name, Bricolage Grotesque, Generous Gaps */}
+          <div className="mt-5 sm:mt-6 mb-8 sm:mb-10 flex justify-center">
             <p className="role" style={{ '--c': accent }}>
-              <span>{formatRole(attendee.role)}</span>
+              <span className="text-white">{roleFirstPart}</span>
+              {roleLastPart && (
+                <span
+                  style={{
+                    color: 'var(--c)',
+                    textShadow: '0 0 18px color-mix(in srgb, var(--c) 55%, transparent)',
+                  }}
+                >
+                  {roleLastPart}
+                </span>
+              )}
               <span className="shine" />
             </p>
           </div>
