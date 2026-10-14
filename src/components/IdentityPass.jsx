@@ -93,7 +93,11 @@ export default function IdentityPass({ attendee }) {
     },
   ].filter(Boolean);
 
-  // Pass Number
+  // Helpers for Editorial Role & Pass Number
+  const roleWords = attendee.role ? attendee.role.trim().split(' ') : ['Member'];
+  const roleFirstPart = roleWords.length > 1 ? roleWords.slice(0, -1).join(' ') : roleWords[0];
+  const roleLastPart = roleWords.length > 1 ? roleWords.slice(-1)[0] : '';
+
   const passIdNumber = attendee.id?.includes('-')
     ? attendee.id.split('-')[1]
     : (attendee.passNumber || '001');
@@ -116,14 +120,13 @@ export default function IdentityPass({ attendee }) {
           { autoAlpha: 1, yPercent: 0, rotate: 0, stagger: 0.025, duration: 0.65 },
           0.45
         )
-        .fromTo('.anim-watermark', { autoAlpha: 0, x: -16 }, { autoAlpha: 0.4, x: 0, duration: 0.6 }, '-=0.3')
+        .fromTo('.role', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.25')
         .fromTo('.anim-link', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, stagger: 0.07, duration: 0.45 }, '-=0.25')
         .fromTo('.foot', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.2');
 
       // 2. Idle subtle floating oscillation on Big 6.0
       gsap.to(bigRef.current, {
         yPercent: 3,
-        xPercent: -2,
         duration: 4.5,
         ease: 'sine.inOut',
         yoyo: true,
@@ -219,32 +222,16 @@ export default function IdentityPass({ attendee }) {
         }}
       >
         {/* ================================================================= */}
-        {/* 1. HERO: SHIFTED 6.0 BACKGROUND + CHROMATIC ECHO + SCALED AVATAR */}
+        {/* 1. HERO: GIANT OUTLINED "6.0" WITH COLOR FLASHING + SCALED AVATAR */}
         {/* ================================================================= */}
         <section
           className="hero relative flex-1 min-h-[260px] sm:min-h-[300px] w-full overflow-hidden flex items-end justify-center pt-2"
         >
-          {/* Chromatic Holographic Glow Echo Shifted to Left */}
-          <div
-            className="absolute left-[29.5%] sm:left-[31.5%] top-[10%] sm:top-[12%] -translate-x-1/2 font-['Bricolage_Grotesque',sans-serif] font-black pointer-events-none select-none z-0 opacity-35 will-change-transform"
-            style={{
-              fontSize: 'clamp(170px, 35vh, 260px)',
-              lineHeight: 0.8,
-              letterSpacing: '-0.04em',
-              color: 'transparent',
-              WebkitTextStroke: `1.5px ${accent}60`,
-              filter: `drop-shadow(0 0 18px ${accent}45)`,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            6.0
-          </div>
-
-          {/* Giant Outlined "6.0" Shifted to Left-Hand Side with Dynamic Color Flashing */}
+          {/* Giant Outlined "6.0" with Dynamic Color Flashing & Blinking Effect */}
           <div
             ref={bigRef}
             id="big"
-            className="absolute left-[28%] sm:left-[30%] top-[10%] sm:top-[12%] -translate-x-1/2 font-['Bricolage_Grotesque',sans-serif] font-black pointer-events-none select-none z-0 will-change-transform"
+            className="absolute left-1/2 top-[10%] sm:top-[12%] -translate-x-1/2 font-['Bricolage_Grotesque',sans-serif] font-black pointer-events-none select-none z-0 will-change-transform"
             style={{
               fontSize: 'clamp(170px, 35vh, 260px)',
               lineHeight: 0.8,
@@ -256,14 +243,6 @@ export default function IdentityPass({ attendee }) {
             }}
           >
             6.0
-          </div>
-
-          {/* Vertical Technical Edge Watermark on Left Side */}
-          <div className="anim-watermark absolute left-4 sm:left-5 top-[38%] -translate-y-1/2 flex items-center gap-2.5 pointer-events-none select-none z-0 opacity-40 [writing-mode:vertical-rl] rotate-180">
-            <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.28em] text-[var(--c)] uppercase font-semibold">
-              CYBERCUP 6.0 // {attendee.role}
-            </span>
-            <span className="w-6 h-[1px] bg-[var(--c)] opacity-60" />
           </div>
 
           {/* Soft Backlight Glow Centered Behind Head */}
@@ -304,9 +283,9 @@ export default function IdentityPass({ attendee }) {
         </section>
 
         {/* ================================================================= */}
-        {/* 2. IDENTITY: TWO-LINE NAME WITH CLEAN EDITORIAL BREATHING ROOM    */}
+        {/* 2. IDENTITY: TWO-LINE NAME & REFINED ROLE PILL (SENTENCE CASE)    */}
         {/* ================================================================= */}
-        <section className="id relative px-7 sm:px-8 text-center z-30 -mt-2 sm:-mt-4 mb-7 sm:mb-9 shrink-0">
+        <section className="id relative px-7 sm:px-8 text-center z-30 -mt-2 sm:-mt-4 shrink-0">
           <h1
             className="name font-['Bricolage_Grotesque',sans-serif] font-black leading-[0.92] tracking-[-0.035em] text-center"
             style={{ fontSize: 'clamp(2.3rem, 11vw, 3.8rem)' }}
@@ -337,6 +316,26 @@ export default function IdentityPass({ attendee }) {
               </span>
             )}
           </h1>
+
+          {/* Designed Role Typography: Clean Editorial Title, No Background, Generous Gaps */}
+          <div className="mt-5 sm:mt-6 mb-9 sm:mb-11 flex justify-center">
+            <p className="role" style={{ '--c': accent }}>
+              <span className="text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.12)]">
+                {roleFirstPart}
+              </span>
+              {roleLastPart && (
+                <span
+                  className="role-accent inline-block"
+                  style={{
+                    color: 'var(--c)',
+                    textShadow: '0 0 20px color-mix(in srgb, var(--c) 55%, transparent)',
+                  }}
+                >
+                  {roleLastPart}
+                </span>
+              )}
+            </p>
+          </div>
         </section>
 
         {/* ================================================================= */}
@@ -375,14 +374,11 @@ export default function IdentityPass({ attendee }) {
         </ul>
 
         {/* ================================================================= */}
-        {/* 4. FOOTER: ROLE & PASS NUMBER WITH SAFE-AREA INSET PADDING        */}
+        {/* 4. FOOTER: CYBERCUP 6.0 & PASS NUMBER WITH SAFE-AREA INSET PADDING */}
         {/* ================================================================= */}
         <footer className="foot shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--c)' }} />
-            <span className="font-medium tracking-wide text-white/90">{attendee.role}</span>
-          </div>
-          <span className="font-mono text-[#8a8f9c]">{passLabel}</span>
+          <span>Cybercup 6.0</span>
+          <span>{passLabel}</span>
         </footer>
       </article>
     </main>
