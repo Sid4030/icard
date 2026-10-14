@@ -79,8 +79,9 @@ export const HEADS_DATA = {
     linkedin: "kusagra-rai",
     github: "kusagra-rai",
     avatar: "/images-without-background/kushagra.png",
-    accentColor: "#10b981",
-    accentSecondary: "#06b6d4",
+    avatarScale: 1.25,
+    accentColor: "#05f19c",
+    accentSecondary: "#00dc82",
     venue: "Registration Dome & Operations Center",
     description: "Registration Head managing participant onboarding, check-ins, and delegate credentials."
   },

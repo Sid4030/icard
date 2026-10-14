@@ -64,8 +64,8 @@ export default function IdentityPass({ attendee }) {
   const accent = attendee.accentColor || '#5b86ff';
   const photoSrc = resolveAvatar(attendee);
 
-  // Avatar scale multiplier: boosts Manan and Chahat for commanding presence
-  const avatarScale = attendee.avatarScale || (['manan-nidar', 'manan', 'chahat'].includes(attendee.slug) ? 1.25 : 1.10);
+  // Avatar scale multiplier: boosts Manan, Chahat, and Kushagra for commanding presence
+  const avatarScale = attendee.avatarScale || (['manan-nidar', 'manan', 'chahat', 'kusagra-rai', 'kushagra-rai', 'kushagra'].includes(attendee.slug) ? 1.25 : 1.10);
 
   // Split name for high-fashion two-line typography
   const firstName = attendee.firstName || attendee.name.split(' ')[0] || attendee.name;
@@ -126,14 +126,7 @@ export default function IdentityPass({ attendee }) {
         .fromTo('.anim-link', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, stagger: 0.07, duration: 0.45 }, '-=0.25')
         .fromTo('.foot', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.2');
 
-      // 2. Pulsing ring on the dot: cheap, scale and opacity only
-      gsap.fromTo(
-        '.ring',
-        { scale: 1, opacity: 0.8 },
-        { scale: 3, opacity: 0, duration: 1.6, ease: 'power2.out', repeat: -1, repeatDelay: 0.6 }
-      );
-
-      // 3. Idle subtle floating oscillation on Big 6.0
+      // 2. Idle subtle floating oscillation on Big 6.0
       gsap.to(bigRef.current, {
         yPercent: 3,
         duration: 4.5,
@@ -227,6 +220,7 @@ export default function IdentityPass({ attendee }) {
           border: metrics.isDesktop ? '1px solid var(--line)' : 'none',
           boxShadow: metrics.isDesktop ? '0 40px 120px -30px rgba(0,0,0,0.9)' : 'none',
           paddingTop: 'max(env(safe-area-inset-top, 0px), 12px)',
+          paddingBottom: metrics.isDesktop ? '8px' : '0px',
         }}
       >
         {/* ================================================================= */}
@@ -325,12 +319,9 @@ export default function IdentityPass({ attendee }) {
             )}
           </h1>
 
-          {/* Centered Role Pill with Custom Tint, Sentence Case, Dot Pulse & Shine */}
+          {/* Centered Role Pill with Custom Tint, Sentence Case & Silky Shine Swipe */}
           <div className="mt-3 sm:mt-4 mb-6 sm:mb-7 flex justify-center">
             <p className="role" style={{ '--c': accent }}>
-              <i>
-                <b className="ring" />
-              </i>
               <span>{formatRole(attendee.role)}</span>
               <span className="shine" />
             </p>
