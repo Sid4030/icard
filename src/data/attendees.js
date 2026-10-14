@@ -1,319 +1,321 @@
 /**
- * CYBERCUP 6.0 - CORE TEAM & ATTENDEE REGISTRY
+ * CYBERCUP 6.0 — OFFICIAL HEADS & VIRTUAL IDENTITY REGISTRY
  * 
- * ℹ️ HOW PHYSICAL QR CODES & EDITING WORK:
- * 1. Each QR code printed on a card points to a permanent web URL:
- *    https://<your-vercel-domain>/<member-slug>
- * 2. When you edit any information in this file (names, roles, phones, emails, etc.)
- *    and push to GitHub, Vercel updates the website in seconds.
- * 3. The physical QR code printed on the i-card will ALWAYS work and immediately
- *    display the updated details. You NEVER need to reprint the QR code!
+ * ℹ️ HOW PHYSICAL QR CODES & PERMALINKS WORK:
+ * 1. Each QR code printed points to an individual web URL:
+ *    https://<domain>/<member-slug> (e.g. /siddhant-choudhary or /manan-nidar)
+ * 2. Aliases supported (e.g. /siddhant, /manan, /kusagra, /kushagra, /riddhi, etc.)
+ * 3. Verified attendees only (returns null for unknown slugs).
  */
 
-export const ATTENDEES = {
-  // 1. Siddhant Choudhary
+export const HEADS_DATA = {
+  // 1. Siddhant Choudhary — Technical Head
   "siddhant-choudhary": {
     slug: "siddhant-choudhary",
     name: "Siddhant Choudhary",
+    firstName: "Siddhant",
+    lastName: "Choudhary",
     shortName: "Siddhant",
-    role: "Lead Organizer & Core Lead",
-    department: "Cyber Security & Infrastructure",
+    role: "Technical Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-001-CORE",
+    id: "CC6-001-TECH",
     email: "chosiddhant125@gmail.com",
     phone: "+91 98765 43210",
-    instagram: "sid_choudhary",
-    github: "Sid4030",
-    avatar: null, // Simple clean design with name only (add image path later if desired)
-    accentColor: "#00f2fe",
-    accentSecondary: "#4facfe",
-    tier: "CORE TEAM / LEAD",
-    bloodGroup: "O+",
-    emergencyPhone: "+91 98765 00000",
+    linkedin: "siddhant-choudhary",
+    github: "siddhant-choudhary",
+    avatar: "/images-without-background/Siddhant-removebg-preview.png",
+    accentColor: "#5b86ff",
+    accentSecondary: "#85a7ff",
     venue: "Main Arena & Tech Dome",
-    accessLevel: "All-Access VIP / Arena Pass",
-    description: "Core lead overseeing overall technical architecture, CTF operations, and symposium execution for Cybercup 6.0."
+    description: "Technical Head overseeing technical execution and architecture for Cybercup 6.0."
   },
   "siddhant": {
     aliasOf: "siddhant-choudhary"
   },
 
-  // 2. Manan Nidar
+  // 2. Manan Nidar — Design Head
   "manan-nidar": {
     slug: "manan-nidar",
     name: "Manan Nidar",
+    firstName: "Manan",
+    lastName: "Nidar",
     shortName: "Manan",
-    role: "Technical Operations Head",
-    department: "Systems & Platform Infrastructure",
+    role: "Design Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-002-TECH",
+    id: "CC6-002-DES",
     email: "manan.nidar@cybercup.tech",
     phone: "+91 98765 43211",
-    instagram: "manan_nidar",
+    linkedin: "manan-nidar",
     github: "manan-nidar",
-    avatar: null,
+    avatar: "/images-without-background/Manan_ridar-removebg-preview.png",
+    avatarScale: 1.25,
     accentColor: "#38bdf8",
     accentSecondary: "#818cf8",
-    tier: "CORE TEAM / TECH HEAD",
-    bloodGroup: "B+",
-    emergencyPhone: "+91 98765 00001",
-    venue: "Main Arena & Server Hub",
-    accessLevel: "Technical Operations VIP Pass",
-    description: "Head of technical operations, managing live server orchestration, network stability, and platform defense."
+    venue: "Design & Creative Studio",
+    description: "Design Head overseeing brand identity, visual systems, and creative direction."
   },
   "manan": {
     aliasOf: "manan-nidar"
   },
 
-  // 3. Kusagra Rai
+  // 3. Kushagra Rai — Registration Head
   "kusagra-rai": {
     slug: "kusagra-rai",
-    name: "Kusagra Rai",
-    shortName: "Kusagra",
-    role: "Event Operations & Logistics Head",
-    department: "Arena Management & Logistics",
+    name: "Kushagra Rai",
+    firstName: "Kushagra",
+    lastName: "Rai",
+    shortName: "Kushagra",
+    role: "Registration Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-003-OPS",
+    id: "CC6-003-REG",
     email: "kusagra.rai@cybercup.tech",
     phone: "+91 98765 43212",
-    instagram: "kusagra_rai",
+    linkedin: "kusagra-rai",
     github: "kusagra-rai",
-    avatar: null,
+    avatar: "/images-without-background/kushagra.png",
     accentColor: "#10b981",
     accentSecondary: "#06b6d4",
-    tier: "CORE TEAM / OPERATIONS",
-    bloodGroup: "A+",
-    emergencyPhone: "+91 98765 00002",
-    venue: "Main Tech Dome & Operations Center",
-    accessLevel: "Operations VIP Pass",
-    description: "Directing event logistics, arena flow, schedule coordination, and on-ground symposium execution."
+    venue: "Registration Dome & Operations Center",
+    description: "Registration Head managing participant onboarding, check-ins, and delegate credentials."
   },
   "kusagra": {
     aliasOf: "kusagra-rai"
   },
+  "kushagra-rai": {
+    aliasOf: "kusagra-rai"
+  },
+  "kushagra": {
+    aliasOf: "kusagra-rai"
+  },
 
-  // 4. Riddhi Jain
+  // 4. Riddhi Jain — Marketing Head
   "riddhi-jain": {
     slug: "riddhi-jain",
     name: "Riddhi Jain",
+    firstName: "Riddhi",
+    lastName: "Jain",
     shortName: "Riddhi",
-    role: "Media & Creative Communications Head",
-    department: "Brand Experience & Media Operations",
+    role: "Marketing Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-004-MEDIA",
+    id: "CC6-004-MKT",
     email: "riddhi.jain@cybercup.tech",
     phone: "+91 98765 43213",
-    instagram: "riddhi_jain",
+    linkedin: "riddhi-jain",
     github: "riddhi-jain",
-    avatar: null,
+    avatar: "/images-without-background/Riddhi-removebg-preview.png",
     accentColor: "#f43f5e",
     accentSecondary: "#fb7185",
-    tier: "CORE TEAM / CREATIVE",
-    bloodGroup: "B+",
-    emergencyPhone: "+91 98765 00003",
     venue: "Media Center & Main Stage",
-    accessLevel: "VIP Media Pass",
-    description: "Overseeing media coverage, visual storytelling, broadcast streams, and attendee creative engagement."
+    description: "Marketing Head directing campaign strategy, digital reach, and event promotions."
   },
   "riddhi": {
     aliasOf: "riddhi-jain"
   },
 
-  // 5. Tarun Tiwari
+  // 5. Tarun Tiwari — Sponsorship Head
   "tarun-tiwari": {
     slug: "tarun-tiwari",
     name: "Tarun Tiwari",
+    firstName: "Tarun",
+    lastName: "Tiwari",
     shortName: "Tarun",
-    role: "Security & Arena Defense Head",
-    department: "Cyber Defense & Arena Security",
+    role: "Sponsorship Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-005-SEC",
+    id: "CC6-005-SPON",
     email: "tarun.tiwari@cybercup.tech",
     phone: "+91 98765 43214",
-    instagram: "tarun_tiwari",
+    linkedin: "tarun-tiwari",
     github: "tarun-tiwari",
-    avatar: null,
+    avatar: "/images-without-background/Tarun-removebg-preview.png",
     accentColor: "#f59e0b",
     accentSecondary: "#d97706",
-    tier: "CORE TEAM / SECURITY",
-    bloodGroup: "O+",
-    emergencyPhone: "+91 98765 00004",
-    venue: "CTF Security Hub & Gate 1",
-    accessLevel: "VIP Security Access",
-    description: "Leading event cybersecurity protocol, access integrity, hardware monitoring, and incident response."
+    venue: "Corporate Partnerships & VIP Lounge",
+    description: "Sponsorship Head heading sponsor relations, industry alliances, and partnerships."
   },
   "tarun": {
     aliasOf: "tarun-tiwari"
   },
 
-  // 6. Jewel Virmani
+  // 6. Jewel Virmani — Social Media Head
   "jewel-virmani": {
     slug: "jewel-virmani",
     name: "Jewel Virmani",
+    firstName: "Jewel",
+    lastName: "Virmani",
     shortName: "Jewel",
-    role: "PR & Participant Experience Head",
-    department: "Public Relations & Delegate Relations",
+    role: "Social Media Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-006-PR",
+    id: "CC6-006-SOC",
     email: "jewel.virmani@cybercup.tech",
     phone: "+91 98765 43215",
-    instagram: "jewel_virmani",
+    linkedin: "jewel-virmani",
     github: "jewel-virmani",
-    avatar: null,
+    avatar: "/images-without-background/jewel.png",
     accentColor: "#a855f7",
     accentSecondary: "#c084fc",
-    tier: "CORE TEAM / PR & RELATIONS",
-    bloodGroup: "AB+",
-    emergencyPhone: "+91 98765 00005",
-    venue: "Delegate Lounge & Registration Dome",
-    accessLevel: "VIP Delegate Pass",
-    description: "Heading public relations, guest experience, institution delegations, and speaker communications."
+    venue: "Social Media Hub & Live Broadcast",
+    description: "Social Media Head managing official channels, content drops, and community engagement."
   },
   "jewel": {
     aliasOf: "jewel-virmani"
   },
 
-  // 7. Achintya Chaitanya
+  // 7. Achintya Chaitanya — Overall Head
   "achintya-chaitanya": {
     slug: "achintya-chaitanya",
     name: "Achintya Chaitanya",
+    firstName: "Achintya",
+    lastName: "Chaitanya",
     shortName: "Achintya",
-    role: "CTF Platform & Scoring Lead",
-    department: "Cyber Challenges & Scored Tracks",
+    role: "Overall Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-007-CTF",
+    id: "CC6-007-OVR",
     email: "achintya.chaitanya@cybercup.tech",
     phone: "+91 98765 43216",
-    instagram: "achintya_chaitanya",
+    linkedin: "achintya-chaitanya",
     github: "achintya-chaitanya",
-    avatar: null,
+    avatar: "/images-without-background/Achintaya-removebg-preview.png",
     accentColor: "#06b6d4",
     accentSecondary: "#3b82f6",
-    tier: "CORE TEAM / CTF LEAD",
-    bloodGroup: "A+",
-    emergencyPhone: "+91 98765 00006",
-    venue: "CTF War Room & Arena Stage",
-    accessLevel: "VIP War Room Pass",
-    description: "Architecting CTF scoring engines, binary exploitation challenges, and real-time telemetry leaderboards."
+    venue: "Main Stage & Operations Hub",
+    description: "Overall Head leading symposium operations, track coordination, and general management."
   },
   "achintya": {
     aliasOf: "achintya-chaitanya"
   },
 
-  // 8. Anmol Middha
+  // 8. Anmol Middha — Overall Head
   "anmol-middha": {
     slug: "anmol-middha",
     name: "Anmol Middha",
+    firstName: "Anmol",
+    lastName: "Middha",
     shortName: "Anmol",
-    role: "Sponsorship & Industry Partnerships Head",
-    department: "External Affairs & Sponsor Relations",
+    role: "Overall Head",
+    category: "EXECUTIVE LEAD",
+    batch: "2024 - 2028",
     event: "Cybercup 6.0",
-    id: "CC6-008-EXT",
+    id: "CC6-008-OVR",
     email: "anmol.middha@cybercup.tech",
     phone: "+91 98765 43217",
-    instagram: "anmol_middha",
+    linkedin: "anmol-middha",
     github: "anmol-middha",
-    avatar: null,
+    avatar: "/images-without-background/anmol-removebg-preview.png",
     accentColor: "#eab308",
     accentSecondary: "#ef4444",
-    tier: "CORE TEAM / SPONSORSHIPS",
-    bloodGroup: "O-",
-    emergencyPhone: "+91 98765 00007",
-    venue: "VIP Corporate Lounge & Main Arena",
-    accessLevel: "VIP Corporate Pass",
-    description: "Leading corporate sponsorships, industry partner tie-ups, mentor outreach, and prize ecosystem."
+    venue: "VIP Lounge & Main Arena",
+    description: "Overall Head directing symposium strategy, institutional alliances, and cross-team execution."
   },
   "anmol": {
     aliasOf: "anmol-middha"
+  },
+
+  // 9. Chahat — Core Member
+  "chahat": {
+    slug: "chahat",
+    name: "Chahat",
+    firstName: "Chahat",
+    lastName: "",
+    shortName: "Chahat",
+    role: "Core Member",
+    category: "ORGANIZING COMMITTEE",
+    batch: "2024 - 2028",
+    event: "Cybercup 6.0",
+    id: "CC6-009-CORE",
+    email: "chahat@cybercup.tech",
+    phone: "+91 98765 43218",
+    linkedin: "chahat",
+    github: "chahat",
+    avatar: "/images-without-background/chahat-removed-background.png",
+    avatarScale: 1.28,
+    accentColor: "#ec4899",
+    accentSecondary: "#a855f7",
+    venue: "Main Arena & Tech Dome",
+    description: "Core team member coordinating symposium tracks and on-ground operations."
   }
 };
 
 /**
- * List of primary core members for navigation & QR code generation
+ * Filter unique official core heads list (excluding aliases)
  */
-export const CORE_MEMBERS = [
-  "siddhant-choudhary",
-  "manan-nidar",
-  "kusagra-rai",
-  "riddhi-jain",
-  "tarun-tiwari",
-  "jewel-virmani",
-  "achintya-chaitanya",
-  "anmol-middha"
-];
+export const ALL_HEADS = Object.values(HEADS_DATA).filter(
+  (entry) => !entry.aliasOf
+);
 
 /**
- * Format raw slug into clean Title Case name
- * e.g. "siddhant-choudhary" -> "Siddhant Choudhary"
+ * Retrieve attendee by slug or alias. Returns null if not found.
  */
-export function formatSlugToName(slug) {
-  if (!slug) return "Participant";
-  return slug
-    .split(/[-_]+/)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
-}
-
-/**
- * Retrieve attendee data or dynamically construct one for any custom URL name
- */
-export function getAttendeeBySlug(rawSlug) {
+export function getHeadBySlug(rawSlug) {
   if (!rawSlug) {
-    return ATTENDEES["siddhant-choudhary"];
+    return HEADS_DATA["siddhant-choudhary"];
   }
 
-  // Normalize slug: lowercase, replace spaces/underscores with hyphen, strip slashes
   const cleanSlug = rawSlug
     .trim()
     .toLowerCase()
     .replace(/[\s_]+/g, "-")
     .replace(/^\/+|\/+$/g, "");
 
-  // Direct match or alias
-  if (ATTENDEES[cleanSlug]) {
-    const entry = ATTENDEES[cleanSlug];
-    if (entry.aliasOf) {
-      return ATTENDEES[entry.aliasOf];
-    }
-    return entry;
+  // Direct match
+  if (HEADS_DATA[cleanSlug]) {
+    const entry = HEADS_DATA[cleanSlug];
+    return entry.aliasOf ? HEADS_DATA[entry.aliasOf] : entry;
   }
 
-  // Check without hyphens (e.g. "manannidar" -> "manan-nidar")
-  const noHyphenSlug = cleanSlug.replace(/-/g, "");
-  for (const key of Object.keys(ATTENDEES)) {
-    if (key.replace(/-/g, "") === noHyphenSlug) {
-      const entry = ATTENDEES[key];
-      return entry.aliasOf ? ATTENDEES[entry.aliasOf] : entry;
+  // Without hyphens match
+  const noHyphens = cleanSlug.replace(/-/g, "");
+  for (const key of Object.keys(HEADS_DATA)) {
+    if (key.replace(/-/g, "") === noHyphens) {
+      const entry = HEADS_DATA[key];
+      return entry.aliasOf ? HEADS_DATA[entry.aliasOf] : entry;
     }
   }
 
-  // Dynamic fallback for any custom URL name passed (e.g. /rohit-verma or /guest)
-  const formattedName = formatSlugToName(cleanSlug);
-  const shortName = formattedName.split(" ")[0] || formattedName;
-  const hashId = Math.abs(
-    cleanSlug.split("").reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) | 0, 0)
-  ).toString().slice(-4).padStart(4, "7");
+  // Return null for unknown slugs (plain "Pass not found" screen)
+  return null;
+}
 
-  return {
-    slug: cleanSlug,
-    name: formattedName,
-    shortName: shortName,
-    role: "Cybercup 6.0 Member",
-    department: "Cyber Security & Operations",
-    event: "Cybercup 6.0",
-    id: `CC6-${hashId}-MBR`,
-    email: `${cleanSlug.replace(/[^a-z0-9]/g, ".")}@cybercup.tech`,
-    phone: "+91 98*** *****",
-    instagram: cleanSlug.replace(/[^a-z0-9]/g, "_"),
-    github: cleanSlug.replace(/[^a-z0-9]/g, "-"),
-    avatar: null,
-    accentColor: "#38bdf8",
-    accentSecondary: "#818cf8",
-    tier: "CORE TEAM / MEMBER",
-    bloodGroup: "A+",
-    emergencyPhone: "+91 98000 00000",
-    venue: "Main Tech Auditorium",
-    accessLevel: "Official Member Pass",
-    description: `Official Cybercup 6.0 identity credentials issued for ${formattedName}.`
+/**
+ * Robust avatar resolver:
+ * Checks entry.avatar, falls back to mapped transparent images in /images-without-background/
+ */
+export function resolveAvatar(attendee) {
+  if (attendee?.avatar) return attendee.avatar;
+  const slug = attendee?.slug;
+  const avatarMap = {
+    'siddhant-choudhary': '/images-without-background/Siddhant-removebg-preview.png',
+    'siddhant': '/images-without-background/Siddhant-removebg-preview.png',
+    'manan-nidar': '/images-without-background/Manan_ridar-removebg-preview.png',
+    'manan': '/images-without-background/Manan_ridar-removebg-preview.png',
+    'kusagra-rai': '/images-without-background/kushagra.png',
+    'kusagra': '/images-without-background/kushagra.png',
+    'kushagra-rai': '/images-without-background/kushagra.png',
+    'kushagra': '/images-without-background/kushagra.png',
+    'riddhi-jain': '/images-without-background/Riddhi-removebg-preview.png',
+    'riddhi': '/images-without-background/Riddhi-removebg-preview.png',
+    'tarun-tiwari': '/images-without-background/Tarun-removebg-preview.png',
+    'tarun': '/images-without-background/Tarun-removebg-preview.png',
+    'jewel-virmani': '/images-without-background/jewel.png',
+    'jewel': '/images-without-background/jewel.png',
+    'achintya-chaitanya': '/images-without-background/Achintaya-removebg-preview.png',
+    'achintya': '/images-without-background/Achintaya-removebg-preview.png',
+    'anmol-middha': '/images-without-background/anmol-removebg-preview.png',
+    'anmol': '/images-without-background/anmol-removebg-preview.png',
+    'chahat': '/images-without-background/chahat-removed-background.png'
   };
+  return avatarMap[slug] || '/images-without-background/Siddhant-removebg-preview.png';
 }

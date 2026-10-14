@@ -1,106 +1,94 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { getAttendeeBySlug } from './data/attendees';
-import CyberCard from './components/CyberCard';
+import IdentityPass from './components/IdentityPass';
+import { getHeadBySlug } from './data/attendees';
+
+/**
+ * Extract target attendee slug from URL:
+ * Supports:
+ * 1. Clean pathname: /siddhant-choudhary or /manan-nidar
+ * 2. Query parameter: /?name=manan-nidar
+ * 3. Hash: /#/manan-nidar
+ */
+const extractAttendeeSlug = () => {
+  if (typeof window === 'undefined') return 'siddhant-choudhary';
+
+  // 1. Query parameter: ?name=manan-nidar
+  const queryParam = new URLSearchParams(window.location.search).get('name');
+  if (queryParam) return queryParam.trim().toLowerCase();
+
+  // 2. Hash: #/manan-nidar
+  if (window.location.hash) {
+    const hash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+    if (hash) return hash;
+  }
+
+  // 3. Clean Pathname: /manan-nidar
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').trim().toLowerCase();
+  if (path && path !== 'index.html') return path;
+
+  // Default to first lead
+  return 'siddhant-choudhary';
+};
 
 export default function App() {
-  const [currentSlug, setCurrentSlug] = useState('');
-  const [attendee, setAttendee] = useState(() => getAttendeeBySlug(''));
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  // Extract slug from URL pathname, query param, or hash
-  const extractSlugFromUrl = () => {
-    // 1. Try search param: ?name=siddhant-choudhary
-    const searchParams = new URLSearchParams(window.location.search);
-    const queryName = searchParams.get('name');
-    if (queryName) return queryName.trim().toLowerCase();
-
-    // 2. Try hash: #/siddhant-choudhary
-    if (window.location.hash) {
-      const hashSlug = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
-      if (hashSlug) return hashSlug;
-    }
-
-    // 3. Try pathname: /siddhant-choudhary
-    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').trim().toLowerCase();
-    if (path && path !== 'index.html') {
-      return path;
-    }
-
-    // Default to flagship organizer
-    return 'siddhant-choudhary';
-  };
+  const [attendee, setAttendee] = useState(() => getHeadBySlug(extractAttendeeSlug()));
 
   useEffect(() => {
-    const slug = extractSlugFromUrl();
-    setCurrentSlug(slug);
-    const data = getAttendeeBySlug(slug);
-    setAttendee(data);
-    document.title = `${data.name} | Cybercup 6.0 ID`;
+    if (attendee) {
+      document.title = `${attendee.name} | Cybercup 6.0 Pass`;
+    } else {
+      document.title = 'Pass Not Found | Cybercup 6.0';
+    }
 
-    // Listen to browser forward/backward navigation
     const handlePopState = () => {
-      const poppedSlug = extractSlugFromUrl();
-      setCurrentSlug(poppedSlug);
-      const poppedData = getAttendeeBySlug(poppedSlug);
-      setAttendee(poppedData);
-      document.title = `${poppedData.name} | Cybercup 6.0 ID`;
+      const slug = extractAttendeeSlug();
+      const data = getHeadBySlug(slug);
+      setAttendee(data);
+      if (data) {
+        document.title = `${data.name} | Cybercup 6.0 Pass`;
+      } else {
+        document.title = 'Pass Not Found | Cybercup 6.0';
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [attendee]);
 
-  const accentColor = attendee.accentColor || '#00f2fe';
+  const handleSelectLead = () => {
+    const data = getHeadBySlug('siddhant-choudhary');
+    setAttendee(data);
+    window.history.pushState({ slug: 'siddhant-choudhary' }, '', '/siddhant-choudhary');
+  };
+
+  if (!attendee) {
+    return (
+      <div className="min-h-dvh flex items-center justify-center bg-[#0a0a0b] text-white px-6 antialiased font-['Inter','Plus_Jakarta_Sans',system-ui,sans-serif]">
+        <div className="w-full max-w-[360px] text-center">
+          <span className="text-[12px] font-semibold tracking-[0.2em] text-white/40 uppercase block mb-3">
+            CYBERCUP 6.0
+          </span>
+          <h1 className="text-2xl font-semibold tracking-tight text-white mb-2">
+            Pass not found
+          </h1>
+          <p className="text-sm text-[#8a8f98] mb-8 leading-relaxed">
+            The requested attendee pass does not exist or the link may be invalid.
+          </p>
+          <button
+            type="button"
+            onClick={handleSelectLead}
+            className="w-full h-11 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 active:scale-[0.99] transition-all cursor-pointer"
+          >
+            View Lead Pass
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden px-4 py-8 select-none">
-      {/* Background Ambience */}
-      <div className="cyber-bg-grid" />
-      <div 
-        className="ambient-glow-1 transition-all duration-700"
-        style={{
-          background: `radial-gradient(circle, ${accentColor}1f 0%, ${accentColor}05 50%, transparent 70%)`
-        }}
-      />
-      <div 
-        className="ambient-glow-2 transition-all duration-700" 
-        style={{
-          background: `radial-gradient(circle, ${attendee.accentSecondary || '#a855f7'}18 0%, transparent 70%)`
-        }}
-      />
-
-      {/* Subtle Top Event Label */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300 backdrop-blur-md mb-3 sm:mb-5 relative z-10"
-      >
-        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-        <span className="font-bold text-white tracking-wider">CYBERCUP 6.0</span>
-        <span className="text-slate-500">•</span>
-        <span className="text-slate-400">OFFICIAL IDENTITY BADGE</span>
-      </motion.div>
-
-      {/* 3D Interactive CyberCard with Lanyard */}
-      <div className="relative z-10 flex flex-col items-center justify-center">
-        <CyberCard attendee={attendee} onFlipChange={setIsFlipped} />
-      </div>
-
-      {/* Minimal Tech Tagline at Bottom */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="mt-5 text-center text-[10px] font-mono text-slate-500 relative z-10 flex items-center justify-center gap-2"
-      >
-        <span className="text-slate-400 font-semibold">{attendee.name}</span>
-        <span className="text-slate-600">//</span>
-        <span>{attendee.id}</span>
-        <span className="text-slate-600">//</span>
-        <span className="text-cyan-400/80 font-bold">VERIFIED</span>
-      </motion.div>
+    <div className="min-h-dvh w-full bg-[#0a0a0b] text-white">
+      <IdentityPass attendee={attendee} />
     </div>
   );
 }
